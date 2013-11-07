@@ -1,0 +1,26 @@
+vtk_power/: Includes small isosurfacing vis application used for
+doing power analysis studies on venus13 cluster with RAPL. The venus13 cluster
+was packaged up to be shipped to SC13 in Denver on Friday, Nov 8, so it was
+necessary to save working files and directories for continued research.
+
+vtk_power.C: Isosurfacing application with 3 phases, creating data set,
+isosurfacing, and normals. Change isovalue on lin 64 to affect how many
+triangles are being created - a value of 0.2 and 0.5 should produce more
+triangles than 0.01. The larger number of triangles produced, the more work
+being done, and the result being larger power consumption.
+
+Makefile: Makes two object files. vtk_power is an executable built with libmsr,
+so we can analyze instantaneous power consumption. vtk_app is an executable
+built with just MPI, so the program will run with no power readings.
+
+vtk_power_runner: Runs the vtk_power executable. Must be run as root in order
+to read msrs, otherwise will see lots of errors. 
+
+scratch.c: Scratch application to test sleep command. Libmsr should be reading
+the msrs every 1ms over a 100s sleep.
+
+
+data_X.X.txt: All inclusive data files, where X.X is the isovalue determined in
+vtk_power.C. Lines with RRR deal with power, so there is additional files with
+RRR_X.X.txt, which are imported to R and plots are created (time on x-axis,
+power consumption on y-axis).

@@ -1,0 +1,5 @@
+#!/bin/bash
+module load mvapich2-gnu-psm/1.7
+export LD_LIBRARY_PATH=/opt/mvapich2-gnu-psm-1.7/lib:/home/labasan1/visit/vtk/5.8.0.a/linux-x86_64_gcc-4.4/lib:/home/labasan1/libmsr
+srun --nodes=1 --ntasks=8 --ntasks-per-node=8 -ppall --auto-affinity=start=1,verbose,cpt=1 ./vtk_power | grep RRR > data.txt
+chown labasan1.labasan1 data.txt
